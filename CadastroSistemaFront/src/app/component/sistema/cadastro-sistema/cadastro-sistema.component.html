@@ -1,0 +1,57 @@
+<div class="col-md-12">
+  <nav class="nav navbar-light bg-light">
+    <span class="navbar-text col-md-10">Manter sistema</span>
+    <span class="navbar-text text-danger">* Campo obrigatório</span>
+  </nav>
+  <div class="alert alert-success" *ngIf="formValidade.submitted && validate">
+    <strong>Operação realizada com sucesso!</strong>
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  </div>
+  <form action="" class="" (ngSubmit)="cadastrarSistema()" #formValidade="ngForm" novalidate>
+    <div class="form-group col-md-12">
+      <div class="form-group form-inline">
+        <label for="descricaoSistema" class="col-form-label col-md-3 justify-content-lg-start">Descrição<label
+          class="text-danger">*</label></label>
+        <input type="text" [(ngModel)]="sistemaObj.descricaoSistema" id="descricaoSistema" name="descricaoSistema"
+               class="form-control form-control-sm col-md-3 mr-2"
+               autocomplete="off" required [maxLength]="100">
+      </div>
+
+      <div class="form-group form-inline">
+        <label for="siglaSistema" class="col-form-label col-md-3 justify-content-lg-start">Sigla<label
+          class="text-danger">*</label></label>
+        <input type="text" [(ngModel)]="sistemaObj.siglaSistema" id="siglaSistema" name="siglaSistema"
+               class="form-control form-control-sm col-md-3 mr-2"
+               autocomplete="off" required [maxLength]="10">
+
+      </div>
+
+      <div class="form-group form-inline">
+        <label for="emailSistema" class="col-form-label col-md-3 justify-content-lg-start">E-mail de atendimento do
+          sistema</label>
+        <input id="emailSistema" [(ngModel)]="sistemaObj.emailSistema" name="emailSistema" type="email"
+               class="form-control form-control-sm col-md-3"
+               placeholder="email@dominio.com" autocomplete="off" [maxLength]="100">
+      </div>
+      <div class="form-group form-inline">
+        <label for="urlSistema" class="col-form-label col-md-3 justify-content-lg-start">URL</label>
+        <input id="urlSistema" [(ngModel)]="sistemaObj.urlSistema" name="urlSistema" type="text"
+               class="form-control form-control-sm col-md-3" autocomplete="off" [maxLength]="50">
+      </div>
+    </div>
+
+    <div class="alert alert-danger" *ngIf="formValidade.submitted && validacao">
+      <span align="center">{{ validacao }}</span>
+    </div>
+
+    <nav class="navbar navbar-light bg-light justify-content-lg-end">
+      <button class="btn btn-outline-danger my-2 my-sm-0 mr-2 " [routerLink]="['/sistema/busca']"
+              routerLinkActive="router-link-active">Voltar
+      </button>
+      <div class="col-md-10"></div>
+      <button type="submit" class="btn btn-outline-success my-2 my-sm-0 mr-2">Salvar
+      </button>
+    </nav>
+  </form>
+</div>
+

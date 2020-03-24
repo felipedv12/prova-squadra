@@ -1,0 +1,64 @@
+<div class="col-md-12">
+  <nav class="navbar navbar-light bg-light">
+    <span class="navbar-text">Pesquisar Sistema</span>
+  </nav>
+
+  <form action="" (ngSubmit)="buscarDados(formValidade)" #formValidade="ngForm" class="">
+    <div class="form-group">
+      <div class="form-group form-inline">
+        <label for="descricaoSistema" class="col-form-label col-md-3 justify-content-lg-start">Descrição:</label>
+        <input type="text" class="form-control form-control-sm col-md-3" id="descricaoSistema" name="descricaoSistema" [(ngModel)]="sistemaObj.descricaoSistema" autocomplete="off">
+      </div>
+      <div class="form-group form-inline">
+        <label for="siglaSistema" class="col-form-label col-md-3 justify-content-lg-start">Sigla:</label>
+        <input type="text" class="form-control form-control-sm col-md-3" id="siglaSistema" name="siglaSistema" [(ngModel)]="sistemaObj.siglaSistema" autocomplete="off">
+      </div>
+      <div class="form-group form-inline">
+        <label for="emailSistema" class="col-form-label col-md-3 justify-content-lg-start">E-mail de atendimento do sistema:</label>
+        <input type="email" class="form-control form-control-sm col-md-3" id="emailSistema" name="emailSistema" placeholder="email@dominio.com" [(ngModel)]="sistemaObj.emailSistema" autocomplete="off">
+      </div>
+    </div>
+    <div class="alert alert-danger" *ngIf="formValidade.submitted && errosValidacao">
+      <span align="center">{{ errosValidacao }}</span>
+    </div>
+    <nav class="navbar navbar-light bg-light justify-content-lg-end">
+      <div class="float-right">
+        <button type="submit" class="btn btn-outline-success my-2 my-sm-0 mr-2">Pesquisar</button>
+        <button type="button" class="btn btn-outline-secondary my-2 my-sm-0 mr-2 text-reset" (click)="resetarPesquisa()">Limpar</button>
+        <button type="button" class="btn btn-info my-2 my-sm-0 mr-2" [routerLink]="['/sistema/cadastro']" routerLinkActive="router-link-active">Novo Sistema</button>
+      </div>
+    </nav>
+  </form>
+</div>
+
+<div class="col-md-12" *ngIf="resultadoSistemas.length > 0">
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th scope="col">Descrição</th>
+      <th scope="col">Sigla</th>
+      <th scope="col">E-mail de atendimento</th>
+      <th scope="col">URL</th>
+      <th scope="col">Status</th>
+      <th scope="col">Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item  of resultadoSistemas | paginate: { itemsPerPage: 5, currentPage: paginaAtual }">
+      <td>{{item.descricaoSistema}}</td>
+      <td>{{item.siglaSistema}}</td>
+      <td>{{item.emailSistema}}</td>
+      <td>{{item.urlSistema}}</td>
+      <td>{{item.statusSistema}}</td>
+      <td><button class="btn btn-outline-warning" [routerLink]="['/sistema/cadastro', item.idSistema]" routerLinkActive="router-link-active">Editar</button></td>
+    </tr>
+    <pagination-controls
+      (pageChange)="paginaAtual = $event"
+      autoHide="true"
+      screenReaderPageLabel="pagina"
+      screenReaderCurrentLabel="Você está na página"
+
+    ></pagination-controls>
+    </tbody>
+  </table>
+</div>
